@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    public LayerMask solidObjectsLayer;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,10 +37,16 @@ public class PlayerController : MonoBehaviour
                 var targetPosition = transform.position;
                 targetPosition.x += input.x;
                 targetPosition.y += input.y;
-                
-                StartCoroutine(Move(targetPosition));
+
+                if(IsWalkable(targetPosition))
+                {
+                    StartCoroutine(Move(targetPosition));
+                }
+
             }
         }
+
+        animator.SetBool("isMoving",isMoving);
     }
 
     IEnumerator Move(Vector3 targetPosition)
@@ -52,10 +60,15 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPosition;
         isMoving = false;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    private bool IsWalkable(Vector3 targetPosition)
+    {
+        if(Physics2D.OverlapCircle(targetPosition, 0.2f, solidObjectsLayer) != null){
+            return false;
+        }
+        return true;
     }
+
+    
 
 }
