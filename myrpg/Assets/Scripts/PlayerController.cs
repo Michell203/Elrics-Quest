@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;
 
     // Update is called once per frame
-    public void Update()
+    public void FixedUpdate()
     {
         if (!isMoving)
         {
@@ -24,17 +24,21 @@ public class PlayerController : MonoBehaviour
                 var targetPosition = transform.position;
                 targetPosition.x += input.x;
                 targetPosition.y += input.y;
+                StartCoroutine(Move(targetPosition));
             }
         }
     }
 
     IEnumerator Move(Vector3 targetPosition)
     {
+        isMoving = true;
         while ((targetPosition - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
         }
+        transform.position = targetPosition;
+        isMoving = false;
     }
     // Start is called before the first frame update
     void Start()
