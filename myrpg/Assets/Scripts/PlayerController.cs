@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     public LayerMask solidObjectsLayer;
+    public LayerMask interactableLayer;
 
     private void Awake()
     {
@@ -47,6 +48,25 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("isMoving",isMoving);
+
+        if(Input.GetKeyDown(KeyCode.Z)) //Press Z to interact
+        {
+            Interact();
+        }
+    }
+
+    void Interact()
+    {
+        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var interactPos = transform.position + facingDir;
+
+        //Debug.DrawLine(transform.position, interactPos, Color.red, 1f); //for debugging purposes
+
+        var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableLayer); //check if there is NPC infront of player
+        if(collider != null)
+        {
+            //Debug.Log("There is an NPC here") 
+        }
     }
 
     IEnumerator Move(Vector3 targetPosition)
@@ -63,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPosition)
     {
-        if(Physics2D.OverlapCircle(targetPosition, 0.2f, solidObjectsLayer) != null){
+        if(Physics2D.OverlapCircle(targetPosition, 0.2f, solidObjectsLayer | interactableLayer) != null){
             return false;
         }
         return true;
