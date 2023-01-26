@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum GameState {FreeRoam, Dialog, Battle}
+
+public class GameController : MonoBehaviour
+{
+    [SerializeField] PlayerController playerController; //SerializedField makes the variable visible in the inspector
+
+    GameState state;
+
+    private void Update()
+    {
+        if (state == GameState.FreeRoam)
+        {
+            playerController.HandleUpdate();
+
+        } else if (state == GameState.Dialog)
+        {
+
+        } else if (state == GameState.Battle)
+        {
+            
+        }
+    }
+}
