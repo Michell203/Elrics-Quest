@@ -9,6 +9,6 @@ public class NPCController : MonoBehaviour, Interactable
     public void Interact()
     {
         // Debug.Log("You have interacted with this NPC");
-        DialogManager.Instance.ShowDialog(dialog);
+        StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
     }
 }

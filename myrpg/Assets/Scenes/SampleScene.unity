@@ -652,7 +652,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: h
+  m_Text: 
 --- !u!222 &589078416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38196,6 +38196,8 @@ MonoBehaviour:
   dialog:
     lines:
     - Hello there!
+    - Welcome to [Enter name of game here]!
+    - My name is Alora.
 --- !u!1 &1939705751
 GameObject:
   m_ObjectHideFlags: 0
